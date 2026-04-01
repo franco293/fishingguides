@@ -43,13 +43,13 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-white font-heading font-bold text-lg">
-                  Captain John's
+                  Captain John&apos;s
                 </div>
                 <div className="text-aqua-400 text-sm">Fishing Charters</div>
               </div>
             </div>
             <p className="text-sm mb-4">
-              Experience the thrill of the catch with Durban&apos;s premier fishing
+              Experience the thrill of the catch with Port Elizabeth&apos;s premier fishing
               guide. 15+ years of local knowledge and unforgettable adventures.
             </p>
             <div className="flex gap-4">
@@ -153,11 +153,11 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
-                <FaMapMarkerAlt className="mt-1 flex-shrink-0" />
+                <FaMapMarkerAlt className="mt-1 shrink-0" />
                 <span>
-                  Durban Marina
+                  Port Elizabeth (Gqeberha)
                   <br />
-                  KwaZulu-Natal, South Africa
+                  Eastern Cape, South Africa
                 </span>
               </li>
             </ul>

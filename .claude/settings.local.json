@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm audit:*)",
+      "Bash(npx playwright:*)",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(identify \"lures/WhatsApp Image 2026-03-24 at 12.43.53.jpeg\")",
+      "Bash(du -sh Logo/*.jpeg catches/*.jpeg lures/*.jpeg)",
+      "Bash(xargs du:*)",
+      "Bash(find . -name \"*.jpeg\" -exec du -c {} +)",
+      "Bash(find . -name \"*.webp\" -exec du -c {} +)",
+      "Bash(sed:*)"
+    ]
+  }
+}

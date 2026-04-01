@@ -98,7 +98,7 @@ export function Button({
   );
 
   if (as === 'link') {
-    const { href, ...rest } = props as ButtonAsNextLink;
+    const { href } = props as ButtonAsNextLink;
     return (
       <Link href={href} className={classes}>
         {content}

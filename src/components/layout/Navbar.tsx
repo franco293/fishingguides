@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes, FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { Button } from '@/components/shared/Button';
@@ -58,12 +59,19 @@ export function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 bg-ocean-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-2xl">🎣</span>
+              <div className="relative w-12 h-12 rounded-full overflow-hidden group-hover:scale-110 transition-transform shrink-0">
+                <Image
+                  src="/images/logo/rm-lures-fishing-charters-port-elizabeth-logo.webp"
+                  alt="RM Lures — handmade fishing lures and charters, Port Elizabeth"
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                  priority
+                />
               </div>
               <div className="hidden sm:block">
                 <div className="text-white font-heading font-bold text-xl">
-                  Captain John's
+                  Captain John&apos;s
                 </div>
                 <div className="text-aqua-400 text-sm">Fishing Charters</div>
               </div>
