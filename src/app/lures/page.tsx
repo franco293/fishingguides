@@ -34,17 +34,19 @@ const productCollectionSchema = {
 };
 
 async function getLures(): Promise<Lure[]> {
-  const { data, error } = await supabase
-    .from('lures')
-    .select('*')
-    .eq('available', true)
-    .order('sort_order', { ascending: true });
+  try {
+    const { data, error } = await supabase
+      .from('lures')
+      .select('*')
+      .eq('available', true)
+      .order('sort_order', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching lures:', error);
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.error('Error fetching lures:', err);
     return [];
   }
-  return data || [];
 }
 
 export default async function LuresPage() {

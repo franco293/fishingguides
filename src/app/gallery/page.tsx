@@ -23,17 +23,19 @@ export const metadata: Metadata = {
 };
 
 async function getCatches(): Promise<Catch[]> {
-  const { data, error } = await supabase
-    .from('catches')
-    .select('*')
-    .eq('published', true)
-    .order('catch_date', { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from('catches')
+      .select('*')
+      .eq('published', true)
+      .order('catch_date', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching catches:', error);
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.error('Error fetching catches:', err);
     return [];
   }
-  return data || [];
 }
 
 export default async function GalleryPage() {

@@ -1,7 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Fallback values prevent createClient() from throwing during Vercel build when
+// env vars haven't been set yet. Actual requests will fail gracefully and pages
+// will render from their static fallback data instead.
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co';
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder-anon-key';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 

@@ -68,17 +68,19 @@ const serviceSchema = {
 };
 
 async function getTours(): Promise<Tour[]> {
-  const { data, error } = await supabase
-    .from('tours')
-    .select('*')
-    .eq('available', true)
-    .order('sort_order', { ascending: true });
+  try {
+    const { data, error } = await supabase
+      .from('tours')
+      .select('*')
+      .eq('available', true)
+      .order('sort_order', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching tours:', error);
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.error('Error fetching tours:', err);
     return [];
   }
-  return data || [];
 }
 
 export default async function ToursPage() {
