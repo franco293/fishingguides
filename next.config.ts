@@ -11,9 +11,12 @@ import type { NextConfig } from 'next';
 //
 // All other directives are intentionally tight.
 
+// React needs eval() in dev for stack-trace reconstruction — never used in production.
+const isDev = process.env.NODE_ENV === 'development';
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   // Next.js Image serves all images via /_next/image (same origin).
   // data: and blob: are needed for image placeholders and canvas operations.

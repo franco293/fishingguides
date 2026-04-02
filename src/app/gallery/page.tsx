@@ -5,6 +5,7 @@ import { supabase, type Catch } from '@/lib/supabase';
 import { Button } from '@/components/shared/Button';
 import { getWhatsAppUrl, formatDate } from '@/lib/utils';
 import { SITE_URL, BUSINESS_ID, breadcrumbSchema } from '@/lib/schema';
+import { staticCatches } from '@/lib/static-catches';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/gallery' },
@@ -36,7 +37,8 @@ async function getCatches(): Promise<Catch[]> {
 }
 
 export default async function GalleryPage() {
-  const catches = await getCatches();
+  const dbCatches = await getCatches();
+  const catches = dbCatches.length > 0 ? dbCatches : staticCatches;
 
   const gallerySchema = {
     '@context': 'https://schema.org',
@@ -70,7 +72,7 @@ export default async function GalleryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-aqua-500/20 text-aqua-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
             <FaFish />
-            {catches.length > 0 ? `${catches.length} Catches & Counting` : 'Trophy Catches'}
+            {catches.length} Catches &amp; Counting
           </div>
           <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
             Port Elizabeth Catch Gallery
@@ -84,8 +86,7 @@ export default async function GalleryPage() {
       {/* Gallery Grid */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {catches.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {catches.map((catchItem) => (
                 <div
                   key={catchItem.id}
@@ -144,17 +145,6 @@ export default async function GalleryPage() {
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-20">
-              <FaFish className="text-6xl text-ocean-200 mx-auto mb-4" />
-              <h2 className="text-2xl font-heading font-bold text-ocean-900 mb-2">
-                Gallery Coming Soon
-              </h2>
-              <p className="text-gray-600">
-                Be the first to land a trophy in Port Elizabeth with Captain John.
-              </p>
-            </div>
-          )}
         </div>
       </section>
 

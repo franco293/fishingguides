@@ -1,20 +1,18 @@
 import Link from 'next/link';
 import {
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
   FaWhatsapp,
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
+import { getWhatsAppUrl } from '@/lib/utils';
 
 const footerLinks = {
   tours: [
     { href: '/tours', label: 'All Tours' },
-    { href: '/tours#inshore', label: 'Inshore Fishing' },
-    { href: '/tours#offshore', label: 'Offshore Fishing' },
-    { href: '/tours#custom', label: 'Custom Charters' },
+    { href: '/tours#inshore', label: 'Inshore Fishing Charter' },
+    { href: '/tours#offshore', label: 'Offshore Deep-Sea Charter' },
+    { href: '/tours#custom', label: 'Custom Charter' },
   ],
   company: [
     { href: '/about', label: 'About the Guide' },
@@ -52,35 +50,6 @@ export function Footer() {
               Experience the thrill of the catch with Port Elizabeth&apos;s premier fishing
               guide. 15+ years of local knowledge and unforgettable adventures.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Facebook"
-              >
-                <FaFacebook className="text-xl" />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="text-xl" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="YouTube"
-              >
-                <FaYoutube className="text-xl" />
-              </a>
-            </div>
           </div>
 
           {/* Tours Column */}
@@ -125,7 +94,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
+                  href={getWhatsAppUrl('Hi! I would like to book a fishing charter in Port Elizabeth.')}
                   className="flex items-center gap-2 text-sm hover:text-white transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"

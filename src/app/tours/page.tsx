@@ -5,6 +5,7 @@ import { supabase, type Tour } from '@/lib/supabase';
 import { Button } from '@/components/shared/Button';
 import { getWhatsAppUrl, formatPrice } from '@/lib/utils';
 import { SITE_URL, BUSINESS_ID, breadcrumbSchema } from '@/lib/schema';
+import { staticTours } from '@/lib/static-tours';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/tours' },
@@ -81,7 +82,8 @@ async function getTours(): Promise<Tour[]> {
 }
 
 export default async function ToursPage() {
-  const tours = await getTours();
+  const dbTours = await getTours();
+  const tours = dbTours.length > 0 ? dbTours : staticTours;
 
   return (
     <>
@@ -114,11 +116,11 @@ export default async function ToursPage() {
       {/* Tours Grid */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {tours.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {tours.map((tour) => (
                 <div
                   key={tour.id}
+                  id={tour.slug}
                   className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-ocean-500 hover:shadow-2xl transition-all duration-300 group"
                 >
                   <div className="relative h-56 overflow-hidden">
@@ -198,29 +200,6 @@ export default async function ToursPage() {
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-20">
-              <FaFish className="text-6xl text-ocean-200 mx-auto mb-4" />
-              <h2 className="text-2xl font-heading font-bold text-ocean-900 mb-2">
-                Tours Coming Soon
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Contact us directly to arrange a custom charter.
-              </p>
-              <Button
-                as="a"
-                href={getWhatsAppUrl('Hi! I would like to arrange a custom fishing charter in Port Elizabeth.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="secondary"
-                size="lg"
-                className="gap-2"
-              >
-                <FaWhatsapp />
-                Enquire via WhatsApp
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 

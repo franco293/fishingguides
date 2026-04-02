@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
@@ -18,6 +18,10 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  themeColor: '#0a2540',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -40,12 +44,21 @@ export const metadata: Metadata = {
     locale: 'en_ZA',
     siteName: "Captain John's Fishing Charters",
     url: SITE_URL,
+    images: [
+      {
+        url: `${SITE_URL}/images/hero/captain-john-fishing-port-elizabeth.webp`,
+        width: 1600,
+        height: 1204,
+        alt: 'Captain John holding a kob caught inshore near Port Elizabeth, Eastern Cape',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: "Captain John's Fishing Charters | Port Elizabeth",
     description:
       "Port Elizabeth's premier fishing guide — offshore & inshore charters and handmade lures.",
+    images: [`${SITE_URL}/images/hero/captain-john-fishing-port-elizabeth.webp`],
   },
   other: {
     'geo.region': 'ZA-EC',
@@ -61,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="en-ZA" className={`${inter.variable} ${montserrat.variable}`}>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"

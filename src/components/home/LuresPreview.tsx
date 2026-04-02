@@ -6,10 +6,17 @@ import { FaArrowRight } from 'react-icons/fa';
 import { supabase, type Lure } from '@/lib/supabase';
 import { Button } from '@/components/shared/Button';
 import { getWhatsAppUrl } from '@/lib/utils';
+import { staticLures } from '@/lib/static-lures';
+
+// Show the 3 most featured static lures as the preview default
+const FEATURED_PREVIEW = staticLures.filter((l) => l.featured).slice(0, 3);
+const DEFAULT_PREVIEW = FEATURED_PREVIEW.length >= 3
+  ? FEATURED_PREVIEW
+  : staticLures.slice(0, 3);
 
 export function LuresPreview() {
-  const [lures, setLures] = useState<Lure[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [lures, setLures] = useState<Lure[]>(DEFAULT_PREVIEW);
+  const [, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchLures() {
@@ -22,7 +29,7 @@ export function LuresPreview() {
           .limit(3);
 
         if (error) throw error;
-        setLures(data || []);
+        if (data && data.length > 0) setLures(data);
       } catch (error) {
         console.error('Error fetching lures:', error);
       } finally {
@@ -32,14 +39,6 @@ export function LuresPreview() {
 
     fetchLures();
   }, []);
-
-  if (loading) {
-    return null; // Or loading skeleton
-  }
-
-  if (lures.length === 0) {
-    return null; // Don't show section if no lures
-  }
 
   return (
     <section className="py-20 bg-ocean-50">
@@ -65,10 +64,10 @@ export function LuresPreview() {
               <div className="relative h-64 bg-gradient-to-br from-ocean-100 to-aqua-100 overflow-hidden">
                 <Image
                   src={lure.image_url || '/images/placeholder-lure.webp'}
-                  alt={`${lure.name} — handmade fishing lure crafted in Port Elizabeth, Eastern Cape`}
+                  alt={`${lure.name} — handmade fishing lure by RM Lures, Port Elizabeth`}
                   fill
                   loading="lazy"
-                  className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
